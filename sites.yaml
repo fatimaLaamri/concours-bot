@@ -1,0 +1,1039 @@
+# Sites watched by the bot.
+# Fields per site:
+#   id, name, url, category      (required)
+#   enabled: false               -> skip this site
+#   rss: <url>                   -> use this RSS/Atom feed (most reliable)
+#   selector: '<css>'            -> only read links inside this CSS block (e.g. '.news a')
+#   keywords: false              -> notify every new link, not only keyword matches
+#   also: [names]                -> other schools that share this same URL
+
+sites:
+- id: tawjih
+  name: بوابة التوجيه المدرسي والمهني
+  url: https://www.tawjih.info/
+  category: aggregator
+  also:
+  - بوابة التوجيه (Tawjih.info)
+- id: tawjihnet
+  name: موقع توجيه نت (Tawjihnet)
+  url: https://www.tawjihnet.net/
+  category: aggregator
+- id: moutamadris
+  name: موقع متمدرس (Moutamadris)
+  url: https://www.moutamadris.ma/
+  category: aggregator
+- id: 9rayti
+  name: موقع قرايتي (9rayti)
+  url: https://www.9rayti.com/
+  category: aggregator
+- id: supmaroc
+  name: موقع سوب ماروك (Supmaroc)
+  url: https://www.supmaroc.com/
+  category: aggregator
+- id: orientation_ma
+  name: منصة Orientation.ma
+  url: https://www.orientation.ma/
+  category: aggregator
+- id: alwadifa_maroc
+  name: موقع الوظيفة مروك (Alwadifa-Maroc)
+  url: https://www.alwadifa-maroc.com/
+  category: aggregator
+- id: emploi_public
+  name: بوابة الوظيفة العمومية والمباريات (Emploi Public)
+  url: https://www.emploi-public.ma/
+  category: aggregator
+- id: ministry_men
+  name: وزارة التربية الوطنية والرياضة
+  url: https://www.men.gov.ma/Ar/Pages/Accueil.aspx
+  category: portal
+- id: ministry_enssup
+  name: وزارة التعليم العالي والبحث العلمي
+  url: https://www.enssup.gov.ma/ar
+  category: portal
+- id: cursussup
+  name: منصة CursusSup
+  url: https://www.cursussup.gov.ma/
+  category: portal
+- id: minhaty
+  name: منصة منحتي (Minhaty)
+  url: https://www.minhaty.ma/
+  category: portal
+- id: ofppt
+  name: التكوين المهني (OFPPT MyWay)
+  url: https://myway.ac.ma/
+  category: portal
+  also:
+  - مدينة المهن والكفاءات سوس ماسة (CMC)
+  - مدينة المهن والكفاءات تامسنا الرباط
+  - مدينة المهن والكفاءات الناظور الشرق
+  - مدينة المهن والكفاءات العيون
+  - مدينة المهن والكفاءات طنجة
+  - مدينة المهن والكفاءات بني ملال
+  - مدينة المهن والكفاءات النواصر الدار البيضاء
+  - المعهد التخصصي في مهن البناء والأشغال العمومية
+- id: massar
+  name: منظومة مسار (Massar Service)
+  url: https://massarservice.men.gov.ma/moutamadris
+  category: portal
+- id: cpge_maroc
+  name: بوابة الأقسام التحضيرية (CPGE)
+  url: https://www.cpge.ac.ma/
+  category: portal
+- id: bts_maroc
+  name: بوابة شهادة التقني العالي (BTS)
+  url: https://e-bts.men.gov.ma/
+  category: portal
+- id: ispits_central
+  name: معاهد ISPITS (الصحة - الرئيسية)
+  url: https://ispits.sante.gov.ma/
+  category: health
+- id: ensa_agadir
+  name: ENSA Agadir
+  url: http://www.ensa-agadir.ac.ma/
+  category: ensa
+- id: ensa_tanger
+  name: ENSA Tanger
+  url: http://www.ensat.ac.ma/
+  category: ensa
+- id: ensa_tetouan
+  name: ENSA Tétouan
+  url: https://ensate.uae.ac.ma/
+  category: ensa
+- id: ensa_kenitra
+  name: ENSA Kénitra
+  url: https://ensa.uit.ac.ma/
+  category: ensa
+- id: ensa_eljadida
+  name: ENSA El Jadida
+  url: http://www.ensaj.ucd.ac.ma/
+  category: ensa
+- id: ensa_safi
+  name: ENSA Safi
+  url: http://www.ensas.uca.ma/
+  category: ensa
+- id: ensa_khouribga
+  name: ENSA Khouribga
+  url: https://ensak.usms.ac.ma/
+  category: ensa
+- id: ensa_oujda
+  name: ENSA Oujda
+  url: http://ensao.ump.ma/
+  category: ensa
+- id: ensa_berrechid
+  name: ENSA Berrechid
+  url: http://www.ensab.ac.ma/
+  category: ensa
+- id: ensa_alhoceima
+  name: ENSA Al Hoceima
+  url: https://ensah.uae.ac.ma/
+  category: ensa
+- id: ensa_fes
+  name: ENSA Fès
+  url: http://www.ensaf.ac.ma/
+  category: ensa
+- id: ensa_marrakech
+  name: ENSA Marrakech
+  url: http://www.ensa.ac.ma/
+  category: ensa
+- id: ensa_sidi_bennour
+  name: ENSA Sidi Bennour
+  url: http://www.ensasb.ucd.ac.ma/
+  category: ensa
+- id: encg_settat
+  name: ENCG Settat
+  url: http://www.encg-settat.ma/
+  category: encg
+- id: encg_casablanca
+  name: ENCG Casablanca
+  url: http://www.encgcasa.ma/
+  category: encg
+- id: encg_agadir
+  name: ENCG Agadir
+  url: http://www.encg-agadir.ac.ma/
+  category: encg
+- id: encg_marrakech
+  name: ENCG Marrakech
+  url: http://www.encg.ucam.ac.ma/
+  category: encg
+- id: encg_kenitra
+  name: ENCG Kénitra
+  url: https://encg.uit.ac.ma/
+  category: encg
+- id: encg_tanger
+  name: ENCG Tanger
+  url: http://www.encgt.ma/
+  category: encg
+- id: encg_eljadida
+  name: ENCG El Jadida
+  url: http://www.encgj.ucd.ac.ma/
+  category: encg
+- id: encg_oujda
+  name: ENCG Oujda
+  url: http://encgo.ump.ma/
+  category: encg
+- id: encg_dakhla
+  name: ENCG Dakhla
+  url: http://encg-dakhla.ac.ma/
+  category: encg
+- id: encg_fes
+  name: ENCG Fès
+  url: http://www.encg-usmba.ac.ma/
+  category: encg
+- id: encg_meknes
+  name: ENCG Meknès
+  url: http://www.encg.umi.ac.ma/
+  category: encg
+- id: encg_beni_mellal
+  name: ENCG Béni Mellal
+  url: http://encg.usms.ac.ma/
+  category: encg
+- id: encg_taroudant
+  name: ENCG Taroudant
+  url: http://www.encgt.uiz.ac.ma/
+  category: encg
+- id: fst_mohammedia
+  name: FST Mohammedia
+  url: http://www.fstm.ac.ma/
+  category: fst
+- id: fst_settat
+  name: FST Settat
+  url: http://www.fsts.ac.ma/
+  category: fst
+- id: fst_marrakech
+  name: FST Marrakech
+  url: https://www.fstg-marrakech.ac.ma/
+  category: fst
+- id: fst_fes
+  name: FST Fès
+  url: http://www.fst-usmba.ac.ma/
+  category: fst
+- id: fst_tanger
+  name: FST Tanger
+  url: http://www.fstt.ac.ma/
+  category: fst
+- id: fst_errachidia
+  name: FST Errachidia
+  url: http://www.fste-umi.ac.ma/
+  category: fst
+- id: fst_alhoceima
+  name: FST Al Hoceima
+  url: https://fsth.uae.ac.ma/
+  category: fst
+- id: fst_benimellal
+  name: FST Béni Mellal
+  url: http://fstbm.ac.ma/
+  category: fst
+- id: est_sale
+  name: EST Salé
+  url: http://www.ests.um5.ac.ma/
+  category: est
+- id: est_casablanca
+  name: EST Casablanca
+  url: http://www.est-uh2c.ac.ma/
+  category: est
+- id: est_safi
+  name: EST Safi
+  url: http://www.ests.uca.ma/
+  category: est
+- id: est_agadir
+  name: EST Agadir
+  url: http://www.esta.ac.ma/
+  category: est
+- id: est_guelmim
+  name: EST Guelmim
+  url: http://estg.uiz.ac.ma/
+  category: est
+- id: est_essaouira
+  name: EST Essaouira
+  url: http://www.este.uca.ma/
+  category: est
+- id: est_meknes
+  name: EST Meknès
+  url: http://www.est-umi.ac.ma/
+  category: est
+- id: est_oujda
+  name: EST Oujda
+  url: http://esto.ump.ma/
+  category: est
+- id: est_berrechid
+  name: EST Berrechid
+  url: http://www.estb.ac.ma/
+  category: est
+- id: est_laayoune
+  name: EST Laâyoune
+  url: http://estl.uiz.ac.ma/
+  category: est
+- id: est_khenifra
+  name: EST Khénifra
+  url: http://estk.usms.ac.ma/
+  category: est
+- id: est_nador
+  name: EST Nador
+  url: http://estn.ump.ma/
+  category: est
+- id: est_kenitra
+  name: EST Kénitra
+  url: https://est.uit.ac.ma/
+  category: est
+- id: est_fquih_ben_salah
+  name: EST Fquih Ben Salah
+  url: http://estfbs.usms.ac.ma/
+  category: est
+- id: est_kelaa
+  name: EST El Kelâa des Sraghna
+  url: http://www.estk.uca.ma/
+  category: est
+- id: est_dakhla
+  name: EST Dakhla
+  url: http://estd.uiz.ac.ma/
+  category: est
+- id: ensam_meknes
+  name: ENSAM Meknès
+  url: http://www.ensam-umi.ac.ma/
+  category: ensam
+- id: ensam_casablanca
+  name: ENSAM Casablanca
+  url: http://www.ensam-casa.ma/
+  category: ensam
+- id: ensam_rabat
+  name: ENSAM Rabat
+  url: http://ensam.um5.ac.ma/
+  category: ensam
+- id: ens_rabat
+  name: ENS Rabat
+  url: http://ens.um5.ac.ma/
+  category: ens
+- id: ens_fes
+  name: ENS Fès
+  url: http://www.ens-usmba.ac.ma/
+  category: ens
+- id: ens_marrakech
+  name: ENS Marrakech
+  url: http://www.ens-marrakech.ac.ma/
+  category: ens
+- id: ens_tetouan
+  name: ENS Tétouan
+  url: https://enst.uae.ac.ma/
+  category: ens
+- id: ens_casablanca
+  name: ENS Casablanca
+  url: http://www.ens.univh2c.ma/
+  category: ens
+- id: fmp_rabat
+  name: كلية الطب والصيدلة الرباط
+  url: http://fmp.um5.ac.ma/
+  category: medicine
+- id: fmp_casablanca
+  name: كلية الطب والصيدلة الدار البيضاء
+  url: http://www.fmpc.ac.ma/
+  category: medicine
+- id: fmp_marrakech
+  name: كلية الطب والصيدلة مراكش
+  url: http://www.fpm.uca.ma/
+  category: medicine
+- id: fmp_fes
+  name: كلية الطب والصيدلة فاس
+  url: http://ww2.fmp-usmba.ac.ma/
+  category: medicine
+- id: fmp_oujda
+  name: كلية الطب والصيدلة وجدة
+  url: http://fmpo.ump.ma/
+  category: medicine
+- id: fmp_agadir
+  name: كلية الطب والصيدلة أكادير
+  url: http://fmpa.uiz.ac.ma/
+  category: medicine
+- id: fmp_tanger
+  name: كلية الطب والصيدلة طنجة
+  url: https://fmpt.uae.ac.ma/
+  category: medicine
+- id: fmp_laayoune
+  name: كلية الطب والصيدلة العيون
+  url: http://fmpl.uiz.ac.ma/
+  category: medicine
+- id: fmp_beni_mellal
+  name: كلية الطب والصيدلة بني ملال
+  url: http://fpm.usms.ac.ma/
+  category: medicine
+- id: fmp_guelmim
+  name: كلية الطب والصيدلة كلميم
+  url: http://fmpg.uiz.ac.ma/
+  category: medicine
+- id: fmp_errachidia
+  name: كلية الطب والصيدلة الرشيدية
+  url: http://fme.umi.ac.ma/
+  category: medicine
+- id: fmp_dakhla
+  name: كلية الطب والصيدلة الداخلة
+  url: https://fmpd.uiz.ac.ma/
+  category: medicine
+- id: fmd_rabat
+  name: كلية طب الأسنان الرباط
+  url: http://fmd.um5.ac.ma/
+  category: medicine
+- id: fmd_casablanca
+  name: كلية طب الأسنان الدار البيضاء
+  url: http://fmd-uh2c.ac.ma/
+  category: medicine
+- id: ena_rabat
+  name: مدرسة الهندسة المعمارية الرباط
+  url: https://www.enarabat.ac.ma/
+  category: architecture
+- id: ena_fes
+  name: مدرسة الهندسة المعمارية فاس
+  url: https://enafes.ac.ma/
+  category: architecture
+- id: ena_marrakech
+  name: مدرسة الهندسة المعمارية مراكش
+  url: https://enamarrakech.ac.ma/
+  category: architecture
+- id: ena_agadir
+  name: مدرسة الهندسة المعمارية أكادير
+  url: https://enaagadir.ac.ma/
+  category: architecture
+- id: ena_tetouan
+  name: مدرسة الهندسة المعمارية تطوان
+  url: https://enatetouan.ac.ma/
+  category: architecture
+- id: ena_oujda
+  name: مدرسة الهندسة المعمارية وجدة
+  url: https://enaoujda.ac.ma/
+  category: architecture
+- id: iav_hassan2
+  name: معهد الحسن الثاني للزراعة والبيطرة (IAV)
+  url: https://www.iav.ac.ma/
+  category: grande_ecole
+- id: enam_meknes
+  name: المدرسة الوطنية للفلاحة بمكناس (ENAM)
+  url: http://www.enam.ac.ma/
+  category: grande_ecole
+- id: isic_rabat
+  name: المعهد العالي للإعلام والاتصال (ISIC)
+  url: https://isic.ac.ma/
+  category: grande_ecole
+- id: ehtp_casablanca
+  name: المدرسة الحسنية للأشغال العمومية (EHTP)
+  url: https://www.ehtp.ac.ma/
+  category: grande_ecole
+- id: emi_rabat
+  name: المدرسة المحمدية للمهندسين (EMI)
+  url: https://www.emi.ac.ma/
+  category: grande_ecole
+- id: inpt_rabat
+  name: المعهد الوطني للبريد والمواصلات (INPT)
+  url: https://www.inpt.ac.ma/
+  category: grande_ecole
+- id: insea_rabat
+  name: المعهد الوطني للإحصاء والاقتصاد التطبيقي (INSEA)
+  url: http://insea.ac.ma/
+  category: grande_ecole
+- id: iscae_casablanca
+  name: معهد التسيير وإدارة المقاولات (ISCAE)
+  url: https://www.groupeiscae.ma/
+  category: grande_ecole
+- id: isss_settat
+  name: المعهد العالي لعلوم الصحة سطات
+  url: http://www.isss.uh1.ac.ma/
+  category: health
+- id: isits_rabat
+  name: المعهد العالي لمهن السمعي البصري (ISITS)
+  url: https://isits.ma/
+  category: grande_ecole
+- id: esith_casablanca
+  name: المعهد العالي لصناعة النسيج (ESITH)
+  url: https://www.esith.ac.ma/
+  category: grande_ecole
+- id: inba_tetouan
+  name: المعهد الوطني للفنون الجميلة بتطوان
+  url: https://inba.ma/
+  category: grande_ecole
+- id: isad_rabat
+  name: المعهد العالي للفن المسرحي والتنشيط الثقافي
+  url: https://isadac.ma/
+  category: grande_ecole
+- id: fs_rabat
+  name: كلية العلوم الرباط
+  url: http://www.fsr.ac.ma/
+  category: faculty
+- id: fsjes_agdal
+  name: كلية الحقوق أكدال الرباط
+  url: http://fsjes-agdal.um5.ac.ma/
+  category: faculty
+- id: fsjes_souissi
+  name: كلية الحقوق السويسي الرباط
+  url: http://fsjes-souissi.um5.ac.ma/
+  category: faculty
+- id: fsjes_sale
+  name: كلية الحقوق سلا
+  url: http://fsjes-sale.um5.ac.ma/
+  category: faculty
+- id: flsh_rabat
+  name: كلية الآداب والعلوم الإنسانية الرباط
+  url: http://www.flshr.ac.ma/
+  category: faculty
+- id: fs_casa_ain_chock
+  name: كلية العلوم عين الشق الدار البيضاء
+  url: http://www.fsac.ac.ma/
+  category: faculty
+- id: fs_casa_ben_msik
+  name: كلية العلوم بن مسيك الدار البيضاء
+  url: http://www.fsb.unv.ma/
+  category: faculty
+- id: fsjes_casa_ain_chock
+  name: كلية الحقوق عين الشق
+  url: http://www.fdc.ma/
+  category: faculty
+- id: fsjes_casa_mohammedia
+  name: كلية الحقوق المحمدية
+  url: http://www.fsjesm.ma/
+  category: faculty
+  also:
+  - كلية العلوم القانونية والاقتصادية المحمدية
+- id: fsa_agadir
+  name: كلية العلوم أكادير
+  url: http://www.fsa.ac.ma/
+  category: faculty
+- id: fsjes_agadir
+  name: كلية الحقوق أكادير
+  url: http://www.fsjes-agadir.ac.ma/
+  category: faculty
+- id: flsh_agadir
+  name: كلية الآداب والعلوم الإنسانية أكادير
+  url: http://www.flsh-agadir.ac.ma/
+  category: faculty
+- id: fp_taroudant
+  name: الكلية المتعددة التخصصات تارودانت
+  url: http://fpt.uiz.ac.ma/
+  category: faculty
+- id: fp_ouarzazate
+  name: الكلية المتعددة التخصصات ورزازات
+  url: http://fpo.uiz.ac.ma/
+  category: faculty
+- id: fp_guelmim
+  name: الكلية المتعددة التخصصات كلميم
+  url: http://fpg.uiz.ac.ma/
+  category: faculty
+- id: fp_smara
+  name: الكلية المتعددة التخصصات السمارة
+  url: http://fps.uiz.ac.ma/
+  category: faculty
+- id: fs_marrakech
+  name: كلية العلوم السملالية مراكش
+  url: http://www.fssm.uca.ma/
+  category: faculty
+- id: fsjes_marrakech
+  name: كلية الحقوق مراكش
+  url: http://www.fsjes.uca.ma/
+  category: faculty
+- id: flsh_marrakech
+  name: كلية الآداب مراكش
+  url: http://www.flshm.uca.ma/
+  category: faculty
+- id: fp_safi
+  name: الكلية المتعددة التخصصات آسفي
+  url: http://www.fps.uca.ma/
+  category: faculty
+- id: fp_kelaa
+  name: الكلية المتعددة التخصصات قلعة السراغنة
+  url: http://www.fpk.uca.ma/
+  category: faculty
+- id: fs_fes_dhar
+  name: كلية العلوم ظهر المهراز فاس
+  url: http://www.fsdmfes.ac.ma/
+  category: faculty
+- id: fsjes_fes
+  name: كلية الحقوق فاس
+  url: http://fsjes.usmba.ac.ma/
+  category: faculty
+- id: flsh_fes_sais
+  name: كلية الآداب سايس فاس
+  url: http://fls.usmba.ac.ma/
+  category: faculty
+- id: fp_taza
+  name: الكلية المتعددة التخصصات تازة
+  url: http://fpt.usmba.ac.ma/
+  category: faculty
+- id: fs_oujda
+  name: كلية العلوم وجدة
+  url: http://fso.ump.ma/
+  category: faculty
+- id: fsjes_oujda
+  name: كلية الحقوق وجدة
+  url: http://fsjeso.ump.ma/
+  category: faculty
+- id: flsh_oujda
+  name: كلية الآداب وجدة
+  url: http://flsho.ump.ma/
+  category: faculty
+- id: fp_nador
+  name: الكلية المتعددة التخصصات الناظور
+  url: http://fpn.ump.ma/
+  category: faculty
+- id: fs_tanger
+  name: كلية العلوم والتقنيات طنجة
+  url: http://fstt.uae.ac.ma/
+  category: faculty
+- id: fsjes_tanger
+  name: كلية الحقوق طنجة
+  url: http://fsjest.uae.ac.ma/
+  category: faculty
+  also:
+  - كلية الحقوق تطوان
+- id: fp_larache
+  name: الكلية المتعددة التخصصات العرائش
+  url: https://fpl.uae.ac.ma/
+  category: faculty
+- id: fs_kenitra
+  name: كلية العلوم القنيطرة
+  url: https://fs.uit.ac.ma/
+  category: faculty
+- id: fsjes_kenitra
+  name: كلية الحقوق القنيطرة
+  url: https://fsjes.uit.ac.ma/
+  category: faculty
+- id: fs_jadida
+  name: كلية العلوم الجديدة
+  url: http://www.ucd.ac.ma/fs/
+  category: faculty
+- id: fsjes_jadida
+  name: كلية العلوم القانونية والاقتصادية الجديدة
+  url: http://www.fsjes.ucd.ac.ma/
+  category: faculty
+- id: fsjes_settat
+  name: كلية الحقوق سطات
+  url: http://www.fsjes.uh1.ac.ma/
+  category: faculty
+- id: fs_meknes
+  name: كلية العلوم مكناس
+  url: http://www.fs-umi.ac.ma/
+  category: faculty
+- id: fsjes_meknes
+  name: كلية الحقوق مكناس
+  url: http://www.fsjes-umi.ac.ma/
+  category: faculty
+- id: fp_errachidia
+  name: الكلية المتعددة التخصصات الرشيدية
+  url: http://www.fpe.umi.ac.ma/
+  category: faculty
+- id: fsjes_beni_mellal
+  name: كلية الحقوق بني ملال
+  url: http://fsjes.usms.ac.ma/
+  category: faculty
+- id: fp_khouribga
+  name: الكلية المتعددة التخصصات خريبكة
+  url: http://fpk.usms.ac.ma/
+  category: faculty
+- id: recrutement_far
+  name: بوابة التوظيف القوات المسلحة الملكية (FAR)
+  url: https://recrutement.far.ma/
+  category: military_security
+  also:
+  - الأكاديمية الملكية العسكرية بمكناس (ARM)
+  - المدرسة الملكية لخدمات الصحة العسكرية (ERSSM)
+  - المدرسة الملكية الجوية بمراكش (ERA)
+  - المدرسة الملكية البحرية بالدار البيضاء (ERN)
+  - بوابة توظيف الحرس الملكي المغربي
+  - المدرسة الملكية لضباط الصف للخدمات الاجتماعية
+- id: concours_dgsn
+  name: بوابة مباريات الشرطة (DGSN)
+  url: https://concours.dgsn.gov.ma/
+  category: military_security
+- id: recrutement_gr
+  name: بوابة الدرك الملكي (Gendarmerie Royale)
+  url: https://recrutement.gr.ma/
+  category: military_security
+- id: recrutement_fa
+  name: بوابة القوات المساعدة
+  url: https://recrutement.forcesauxiliaires.ma/
+  category: military_security
+- id: protection_civile
+  name: بوابة الوقاية المدنية
+  url: https://concours.protectioncivile.ma/
+  category: military_security
+- id: inau_rabat
+  name: المعهد الوطني للتهيئة والتعمير (INAU)
+  url: http://www.inau.ac.ma/
+  category: grande_ecole
+- id: isit_tanger
+  name: المعهد العالي الدولي للسياحة طنجة (ISIT)
+  url: http://www.isit.ma/
+  category: grande_ecole
+- id: inas_tanger
+  name: المعهد الوطني للعمل الاجتماعي بطنجة (INAS)
+  url: https://inas.sante.gov.ma/
+  category: health
+- id: insap_rabat
+  name: المعهد الوطني لعلوم الآثار والتراث (INSAP)
+  url: https://insap.ac.ma/
+  category: grande_ecole
+- id: isem_casablanca
+  name: المعهد العالي للدراسات البحرية (ISEM)
+  url: https://isem.ac.ma/
+  category: grande_ecole
+- id: ismala_nouaceur
+  name: المعهد العالي لمهن الطيران واللوجستيك (ISMALA)
+  url: https://ismala.ac.ma/
+  category: grande_ecole
+- id: dar_hadith_hassania
+  name: مؤسسة دار الحديث الحسنية الرباط
+  url: http://www.edhh.org/
+  category: religious
+- id: m6_lectures_coraniques
+  name: معهد محمد السادس للقراءات والدراسات القرآنية
+  url: https://www.m6lectures.ma/
+  category: religious
+- id: quaraouiyine_fes
+  name: جامعة القرويين فاس
+  url: http://www.alquaraouiyine.ma/
+  category: religious
+- id: fac_chariaa_agadir
+  name: كلية الشريعة أكادير
+  url: http://shariaa.uiz.ac.ma/
+  category: religious
+- id: fac_chariaa_smara
+  name: كلية الشريعة السمارة
+  url: http://fcs.uiz.ac.ma/
+  category: religious
+- id: fac_usul_addine_tetouan
+  name: كلية أصول الدين تطوان
+  url: https://usuladdine.uae.ac.ma/
+  category: religious
+- id: fac_langue_arabe_marrakech
+  name: كلية اللغة العربية مراكش
+  url: http://www.flam.uca.ma/
+  category: religious
+- id: crmef_rabat
+  name: مركز مهن التربية والتكوين الرباط
+  url: http://crmef-rsk.ma/
+  category: teaching
+- id: crmef_casa
+  name: مركز مهن التربية والتكوين الدار البيضاء
+  url: http://www.crmefcs.ma/
+  category: teaching
+- id: crmef_fes
+  name: مركز مهن التربية والتكوين فاس مكناس
+  url: http://crmeffm.ma/
+  category: teaching
+- id: crmef_marrakech
+  name: مركز مهن التربية والتكوين مراكش آسفي
+  url: http://crmefms.ma/
+  category: teaching
+- id: crmef_souss
+  name: مركز مهن التربية والتكوين سوس ماسة
+  url: http://crmefsm.ma/
+  category: teaching
+- id: crmef_oriental
+  name: مركز مهن التربية والتكوين الشرق
+  url: http://crmefo.ma/
+  category: teaching
+- id: crmef_laayoune
+  name: مركز مهن التربية والتكوين العيون الساقية الحمراء
+  url: http://crmeflsh.ma/
+  category: teaching
+- id: crmef_dakhla
+  name: مركز مهن التربية والتكوين الداخلة وادي الذهب
+  url: http://crmefdod.ma/
+  category: teaching
+- id: crmef_guelmim
+  name: مركز مهن التربية والتكوين كلميم واد نون
+  url: http://crmefgwn.ma/
+  category: teaching
+- id: crmef_draa
+  name: مركز مهن التربية والتكوين درعة تافيلالت
+  url: http://crmefdt.ma/
+  category: teaching
+- id: crmef_tanger
+  name: مركز مهن التربية والتكوين طنجة تطوان الحسيمة
+  url: http://crmeftth.ma/
+  category: teaching
+- id: crmef_benimellal
+  name: مركز مهن التربية والتكوين بني ملال خنيفرة
+  url: http://crmefbmk.ma/
+  category: teaching
+- id: ifmeree_oujda
+  name: معهد الطاقات المتجددة وجدة (IFMEREE)
+  url: https://ifmeree.ma/
+  category: vocational
+  also:
+  - معهد الطاقات المتجددة طنجة (IFMEREE)
+  - معهد الطاقات المتجددة ورزازات (IFMEREE)
+- id: ifmia_casablanca
+  name: معهد صناعة السيارات الدار البيضاء (IFMIA)
+  url: https://ifmia-sa.ma/
+  category: vocational
+  also:
+  - معهد صناعة السيارات القنيطرة (IFMIA)
+  - معهد صناعة السيارات طنجة (IFMIA)
+- id: itpm_agadir
+  name: معهد الصيد البحري أكادير (ITPM)
+  url: http://www.itpm-agadir.ac.ma/
+  category: vocational
+- id: itpm_tan_tan
+  name: معهد الصيد البحري طانطان (ITPM)
+  url: http://www.itpm-tantan.ac.ma/
+  category: vocational
+- id: itpm_larache
+  name: معهد الصيد البحري العرائش (ITPM)
+  url: http://www.itpm-larache.ac.ma/
+  category: vocational
+- id: itpm_safi
+  name: معهد الصيد البحري آسفي (ITPM)
+  url: http://www.itpm-safi.ac.ma/
+  category: vocational
+- id: itpm_alhoceima
+  name: معهد الصيد البحري الحسيمة (ITPM)
+  url: http://www.itpm-alhoceima.ac.ma/
+  category: vocational
+- id: itpm_laayoune
+  name: معهد الصيد البحري العيون (ITPM)
+  url: http://www.itpm-laayoune.ac.ma/
+  category: vocational
+- id: flsh_mohammedia
+  name: كلية الآداب والعلوم الإنسانية المحمدية
+  url: http://www.flshm.ma/
+  category: faculty
+- id: flsh_ben_msik
+  name: كلية الآداب بن مسيك الدار البيضاء
+  url: http://www.flshb.unv.ma/
+  category: faculty
+- id: flsh_ain_chock
+  name: كلية الآداب عين الشق الدار البيضاء
+  url: http://www.flsh-uh2c.ac.ma/
+  category: faculty
+- id: flsh_meknes
+  name: كلية الآداب والعلوم الإنسانية مكناس
+  url: http://www.flsh-umi.ac.ma/
+  category: faculty
+- id: flsh_tetouan
+  name: كلية الآداب والعلوم الإنسانية تطوان
+  url: https://flsht.uae.ac.ma/
+  category: faculty
+- id: flsh_kenitra
+  name: كلية الآداب والعلوم الإنسانية القنيطرة
+  url: https://flsh.uit.ac.ma/
+  category: faculty
+- id: flsh_jadida
+  name: كلية الآداب والعلوم الإنسانية الجديدة
+  url: http://www.ucd.ac.ma/flsh/
+  category: faculty
+- id: flsh_beni_mellal
+  name: كلية الآداب والعلوم الإنسانية بني ملال
+  url: http://flsh.usms.ac.ma/
+  category: faculty
+- id: fs_beni_mellal
+  name: كلية العلوم بني ملال
+  url: http://fs.usms.ac.ma/
+  category: faculty
+- id: cu_kelaa
+  name: المركز الجامعي قلعة السراغنة
+  url: http://www.cu-kelaa.uca.ma/
+  category: faculty
+- id: isfr_sale
+  name: معهد الفنيين المتخصصين في المياه والغابات سلا
+  url: http://www.eauxetforets.gov.ma/
+  category: vocational
+- id: itsag_moulay_yacoub
+  name: معهد الفنيين المتخصصين في الفلاحة مولاي يعقوب
+  url: https://www.agriculture.gov.ma/
+  category: vocational
+  also:
+  - المعهد التقني الفلاحي الزرايب بركان
+  - معهد الفنيين الفلاحيين تمارة
+- id: aiac_casablanca
+  name: الأكاديمية الدولية محمد السادس للطيران المدني (AIAC)
+  url: https://www.aiac.ma/
+  category: grande_ecole
+- id: ensmr_rabat
+  name: المدرسة الوطنية العليا للمعادن بالرباط (ENSMR - Ex ENIM)
+  url: https://www.ensmr.ac.ma/
+  category: grande_ecole
+- id: enfi_sale
+  name: المدرسة الوطنية الغابوية للمهندسين بسلا (ENFI)
+  url: https://enfi.ac.ma/
+  category: grande_ecole
+- id: ispm_agadir
+  name: المعهد العالي للصيد البحري بأكادير (ISPM)
+  url: https://www.ispm.ac.ma/
+  category: grande_ecole
+- id: aat_casablanca
+  name: أكاديمية الفنون التقليدية بالدار البيضاء (AAT)
+  url: https://www.aat.ac.ma/
+  category: grande_ecole
+- id: irfc_moulay_rachid
+  name: المعهد الملكي لتكوين أطر الشبيبة والرياضة (IRFC)
+  url: http://www.irfc.ma/
+  category: grande_ecole
+  also:
+  - المعهد الملكي لتكوين الأطر - يعقوب المنصور
+  - المعهد الملكي لتكوين الأطر - المركز الوطني للرياضات سلا
+- id: ensp_rabat
+  name: المدرسة الوطنية للصحة العمومية (ENSP)
+  url: https://ensp.sante.gov.ma/
+  category: health
+- id: ism_rabat
+  name: المعهد العالي للقضاء بالرباط (ISM)
+  url: https://ism.justice.gov.ma/
+  category: grande_ecole
+- id: ensa_admin_rabat
+  name: المدرسة الوطنية العليا للإدارة (ENSA Rabat)
+  url: https://www.ensa.org.ma/
+  category: ensa
+- id: ispits_rabat
+  name: معهد ISPITS الرباط
+  url: https://ispits.sante.gov.ma/rabat
+  category: health
+  also:
+  - ملحقة ISPITS القنيطرة
+- id: ispits_casablanca
+  name: معهد ISPITS الدار البيضاء
+  url: https://ispits.sante.gov.ma/casablanca
+  category: health
+  also:
+  - ملحقة ISPITS سطات
+- id: ispits_fes
+  name: معهد ISPITS فاس
+  url: https://ispits.sante.gov.ma/fes
+  category: health
+  also:
+  - ملحقة ISPITS تازة
+  - ملحقة ISPITS مكناس
+- id: ispits_marrakech
+  name: معهد ISPITS مراكش
+  url: https://ispits.sante.gov.ma/marrakech
+  category: health
+  also:
+  - ملحقة ISPITS آسفي
+- id: ispits_agadir
+  name: معهد ISPITS أكادير
+  url: https://ispits.sante.gov.ma/agadir
+  category: health
+- id: ispits_oujda
+  name: معهد ISPITS وجدة
+  url: https://ispits.sante.gov.ma/oujda
+  category: health
+  also:
+  - ملحقة ISPITS الناظور
+- id: ispits_tetouan
+  name: معهد ISPITS تطوان
+  url: https://ispits.sante.gov.ma/tetouan
+  category: health
+- id: ispits_errachidia
+  name: معهد ISPITS الرشيدية
+  url: https://ispits.sante.gov.ma/errachidia
+  category: health
+  also:
+  - ملحقة ISPITS خنيفرة
+- id: ispits_laayoune
+  name: معهد ISPITS العيون
+  url: https://ispits.sante.gov.ma/laayoune
+  category: health
+  also:
+  - ملحقة ISPITS الداخلة
+- id: ispits_guelmim
+  name: معهد ISPITS كلميم
+  url: https://ispits.sante.gov.ma/guelmim
+  category: health
+- id: univ_ibn_zohr
+  name: جامعة ابن زهر - أكادير (UIZ)
+  url: https://www.uiz.ac.ma/
+  category: university
+- id: univ_mohammed5
+  name: جامعة محمد الخامس - الرباط (UM5)
+  url: https://www.um5.ac.ma/
+  category: university
+- id: univ_hassan2
+  name: جامعة الحسن الثاني - الدار البيضاء (UH2C)
+  url: https://www.univh2c.ma/
+  category: university
+- id: univ_cadi_ayyad
+  name: جامعة القاضي عياض - مراكش (UCA)
+  url: https://www.uca.ma/
+  category: university
+- id: univ_usmba
+  name: جامعة سيدي محمد بن عبد الله - فاس (USMBA)
+  url: http://www.usmba.ac.ma/
+  category: university
+- id: univ_ump
+  name: جامعة محمد الأول - وجدة (UMP)
+  url: http://www.ump.ma/
+  category: university
+- id: univ_uae
+  name: جامعة عبد المالك السعدي - تطوان وطنجة (UAE)
+  url: https://www.uae.ac.ma/
+  category: university
+- id: univ_ucd
+  name: جامعة شعيب الدكالي - الجديدة (UCD)
+  url: http://www.ucd.ac.ma/
+  category: university
+- id: univ_umi
+  name: جامعة مولاي إسماعيل - مكناس (UMI)
+  url: http://www.umi.ac.ma/
+  category: university
+- id: univ_uh1
+  name: جامعة الحسن الأول - سطات (UH1)
+  url: http://www.uh1.ac.ma/
+  category: university
+- id: univ_usms
+  name: جامعة السلطان مولاي سليمان - بني ملال (USMS)
+  url: http://www.usms.ac.ma/
+  category: university
+- id: univ_uit
+  name: جامعة ابن طفيل - القنيطرة (UIT)
+  url: https://www.uit.ac.ma/
+  category: university
+- id: uir_rabat
+  name: الجامعة الدولية للرباط (UIR)
+  url: https://www.uir.ac.ma/
+  category: private_university
+- id: um6p_benguerir
+  name: جامعة محمد السادس متعددة التخصصات (UM6P)
+  url: https://www.um6p.ma/
+  category: private_university
+  also:
+  - جامعة محمد السادس متعددة التخصصات - الرباط
+- id: um6ss_casablanca
+  name: جامعة محمد السادس للعلوم الصحية (UM6SS)
+  url: https://um6ss.ma/
+  category: private_university
+- id: uiass_rabat
+  name: الجامعة الدولية أبو القاسم الزهراوي لعلوم الصحة
+  url: https://uiass.ma/
+  category: private_university
+- id: ueuromed_fes
+  name: الجامعة الأورومتوسطية بفاس (UEMF)
+  url: https://ueuromed.org/
+  category: private_university
+- id: aui_ifrane
+  name: جامعة الأخوين بإفران (Al Akhawayn)
+  url: https://www.aui.ma/
+  category: private_university
+- id: uic_casablanca
+  name: الجامعة الدولية للدار البيضاء (UIC)
+  url: https://www.uic.ac.ma/
+  category: private_university
+- id: universiapolis_agadir
+  name: الجامعة الدولية لأكادير (Universiapolis)
+  url: https://universiapolis.ma/
+  category: private_university
+- id: iss_settat
+  name: المعهد العالي لعلوم الرياضة بسطات (ISS Settat)
+  url: https://i2s.uh1.ac.ma/
+  category: grande_ecole
+- id: amf_sale
+  name: أكاديمية محمد السادس لكرة القدم
+  url: https://amf.ma/
+  category: grande_ecole
+- id: ismac_rabat
+  name: المعهد العالي لمهن السمعي البصري والسينما (ISMAC)
+  url: https://ismac.ac.ma/
+  category: grande_ecole
+- id: conservatoire_rabat
+  name: المعهد الوطني للموسيقى والرقص بالرباط
+  url: https://minculture.gov.ma/
+  category: grande_ecole
+- id: cqpm_dakhla
+  name: مركز التأهيل المهني البحري بالداخلة
+  url: https://www.mpm.gov.ma/
+  category: vocational
+  also:
+  - مركز التأهيل المهني البحري بأكادير

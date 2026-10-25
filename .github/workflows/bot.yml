@@ -1,0 +1,69 @@
+# Runs the concours bot on GitHub every 30 minutes (free in a public repository).
+# Setup: add the secrets BOT_TOKEN, CHAT_ID and ADMIN_ID in
+#   Settings > Secrets and variables > Actions > New repository secret
+# The bot's memory (bot.db) is kept in a separate branch called "state".
+name: Concours bot
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"     # every 30 min (GitHub may start it a few minutes late)
+  workflow_dispatch:            # "Run workflow" button in the Actions tab
+
+permissions:
+  contents: write               # needed to save bot.db to the "state" branch
+
+concurrency:
+  group: concours-bot
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: pip install -r requirements.txt
+
+      - name: Load the bot's memory
+        run: |
+          mkdir -p data
+          if git fetch --depth 1 origin state 2>/dev/null; then
+            git show origin/state:bot.db > data/bot.db
+            echo "Loaded bot.db ($(du -h data/bot.db | cut -f1))"
+          else
+            echo "No saved memory yet: this first run saves existing announcements silently."
+          fi
+
+      - name: Check sites and answer commands
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          ADMIN_ID: ${{ secrets.ADMIN_ID }}
+          HEALTHCHECK_URL: ${{ secrets.HEALTHCHECK_URL }}
+          TIMEZONE: Africa/Casablanca
+          INTERVAL_MINUTES: "30"
+          MAX_WORKERS: "16"
+        run: python main.py --github
+
+      - name: Save the bot's memory
+        if: always()
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          [ -f data/bot.db ] || exit 0
+          tmp=$(mktemp -d)
+          cp data/bot.db "$tmp/"
+          cd "$tmp"
+          git init -q -b state
+          git add bot.db
+          git -c user.name="concours-bot" -c user.email="concours-bot@users.noreply.github.com" \
+              commit -q -m "Bot memory $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push -q -f "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" state
+          echo "Saved bot.db"
