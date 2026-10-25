@@ -106,7 +106,7 @@ def run_github(settings, storage, monitor, log) -> None:
         return
     if storage.get("started_once") is None:
         storage.set("started_once", "1")
-        monitor.notify_admin("🚀 Bot is now running on GitHub, checking every ~30 min.\n"
+        monitor.notify_admin("🚀 Bot is now running on GitHub, checking every ~15 min.\n"
                              "This first check saves what is already on the sites (no alerts). "
                              "From the next check you'll get only NEW announcements.\n/help for commands")
     try:

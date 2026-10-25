@@ -1,4 +1,4 @@
-# Runs the concours bot on GitHub every 30 minutes (free in a public repository).
+# Runs the concours bot on GitHub every 15 minutes (free in a public repository).
 # Setup: add the secrets BOT_TOKEN, CHAT_ID and ADMIN_ID in
 #   Settings > Secrets and variables > Actions > New repository secret
 # The bot's memory (bot.db) is kept in a separate branch called "state".
@@ -6,7 +6,7 @@ name: Concours bot
 
 on:
   schedule:
-    - cron: "7,37 * * * *"     # every 30 min, off the busy :00/:30 (GitHub may still start late)
+    - cron: "7,22,37,52 * * * *"   # every 15 min, off the busy :00/:30 (GitHub may still start late)
   workflow_dispatch:            # "Run workflow" button in the Actions tab
 
 permissions:
@@ -48,7 +48,7 @@ jobs:
           ADMIN_ID: ${{ secrets.ADMIN_ID }}
           HEALTHCHECK_URL: ${{ secrets.HEALTHCHECK_URL }}
           TIMEZONE: Africa/Casablanca
-          INTERVAL_MINUTES: "30"
+          INTERVAL_MINUTES: "15"
           MAX_WORKERS: "16"
         run: python main.py --github
 
