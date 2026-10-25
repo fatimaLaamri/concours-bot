@@ -14,7 +14,7 @@ import requests
 
 from .config import Settings, Site, load_sites
 from .extractor import (Item, KeywordMatcher, extract_feed, extract_html, link_path_text,
-                        looks_like_feed)
+                        looks_like_feed, normalize_text)
 from .fetcher import FetchError, fetch
 from .storage import Storage
 from .telegram import Telegram, esc
@@ -116,7 +116,16 @@ class Monitor:
             items = [i for i in items if self.matcher.matches(i.title, link_path_text(i.url))]
 
         known = self.db.known_keys(site.id)
-        new = [i for i in items if i.key not in known]
+        # Some sites (e.g. Laravel ones) put a code in each link that changes on every page
+        # load, so a known title with a new link is not a new announcement.
+        known_titles = {normalize_text(t) for t in self.db.known_titles(site.id)}
+        new, seen_now = [], set()
+        for i in items:
+            t = normalize_text(i.title)
+            if i.key in known or (len(t) >= 12 and (t in known_titles or t in seen_now)):
+                continue
+            seen_now.add(t)
+            new.append(i)
         rows = [(i.key, i.url, i.title) for i in new]
         self.db.mark_ok(site.id, len(items), feed, insecure)
 

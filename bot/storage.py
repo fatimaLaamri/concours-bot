@@ -105,6 +105,11 @@ class Storage:
             rows = self._db.execute("SELECT url_key FROM items WHERE site_id=?", (site_id,)).fetchall()
         return {r["url_key"] for r in rows}
 
+    def known_titles(self, site_id: str) -> set[str]:
+        with self._lock:
+            rows = self._db.execute("SELECT title FROM items WHERE site_id=?", (site_id,)).fetchall()
+        return {r["title"] for r in rows}
+
     def add_items(self, site_id: str, items: list[tuple[str, str, str]], notified: int) -> None:
         """items: (url_key, url, title)"""
         now = time.time()
