@@ -49,6 +49,12 @@ class CommandHandler:
         self.tg = monitor.tg
         self.db = monitor.db
 
+    @property
+    def _offset_key(self) -> str:
+        """Telegram's read position belongs to one bot: keep it per bot, so switching
+        BOT_TOKEN to another bot doesn't make the new bot ignore its messages."""
+        return "tg_offset:" + (self.tg.token or "").split(":")[0]
+
     def reply(self, chat_id, text: str) -> None:
         self.tg.send(str(chat_id), text, preview=False)
 
@@ -293,7 +299,7 @@ class CommandHandler:
     # ---------------------------------------------------------------- polling
     def poll_once(self) -> int:
         """Answer every command received since the last run (used by GitHub Actions)."""
-        offset = int(self.db.get("tg_offset", "0") or 0)
+        offset = int(self.db.get(self._offset_key, "0") or 0)
         handled = 0
         for _ in range(20):
             updates = self.tg.get_updates(offset, timeout=0)
@@ -301,7 +307,7 @@ class CommandHandler:
                 break
             for upd in updates:
                 offset = upd["update_id"] + 1
-                self.db.set("tg_offset", str(offset))
+                self.db.set(self._offset_key, str(offset))
                 msg = upd.get("message") or upd.get("channel_post")
                 if msg:
                     self.handle(msg)
@@ -310,12 +316,12 @@ class CommandHandler:
 
     def poll_forever(self, stop: threading.Event) -> None:
         self.tg.set_commands(COMMANDS)
-        offset = int(self.db.get("tg_offset", "0") or 0)
+        offset = int(self.db.get(self._offset_key, "0") or 0)
         while not stop.is_set():
             updates = self.tg.get_updates(offset)
             for upd in updates:
                 offset = upd["update_id"] + 1
-                self.db.set("tg_offset", str(offset))
+                self.db.set(self._offset_key, str(offset))
                 msg = upd.get("message") or upd.get("channel_post")
                 if msg:
                     self.handle(msg)
