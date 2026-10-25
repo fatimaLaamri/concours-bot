@@ -41,6 +41,13 @@ GENERIC_LINK_TEXT = {
     "اقرأ المزيد", "المزيد", "التفاصيل", "اضغط هنا", "هنا", "تحميل", "اطلع", "voir", "consulter",
 }
 
+# Links to a whole section ("Voir tout"): menus, never a single announcement.
+SECTION_LINK_TEXT = {
+    "voir tout", "tout voir", "voir toutes", "voir tous", "afficher tout", "toutes les actualites",
+    "tous les avis", "toutes les annonces", "voir la liste", "archives", "see all", "view all",
+    "عرض الكل", "المزيد من الأخبار", "كل الإعلانات", "جميع الإعلانات", "شاهد الكل",
+}
+
 SKIP_HOSTS = ("facebook.com", "fb.com", "twitter.com", "x.com", "instagram.com", "youtube.com",
               "youtu.be", "linkedin.com", "tiktok.com", "wa.me", "whatsapp.com", "t.me",
               "maps.google", "goo.gl", "play.google.com", "apps.apple.com", "snapchat.com",
@@ -62,6 +69,7 @@ def normalize_text(s: str) -> str:
 
 
 GENERIC_LINK_TEXT = {normalize_text(t) for t in GENERIC_LINK_TEXT}
+SECTION_LINK_TEXT = {normalize_text(t) for t in SECTION_LINK_TEXT}
 
 
 class KeywordMatcher:
@@ -192,8 +200,10 @@ def extract_html(content: bytes, page_url: str, selector: str | None = None,
         url = _accept_link(a.get("href"), page_url)
         if not url:
             continue
+        if normalize_text(a.get_text(" ")) in SECTION_LINK_TEXT:
+            continue  # "Voir tout" links lead to a list page, not an announcement
         title = _title_for(a)
-        if not title:
+        if not title or normalize_text(title) in GENERIC_LINK_TEXT:
             continue
         k = url_key(url)
         cur = best.get(k)
