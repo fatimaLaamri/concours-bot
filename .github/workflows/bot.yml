@@ -35,7 +35,7 @@ jobs:
         run: |
           mkdir -p data
           if git fetch --depth 1 origin state 2>/dev/null; then
-            git show origin/state:bot.db > data/bot.db
+            git show FETCH_HEAD:bot.db > data/bot.db
             echo "Loaded bot.db ($(du -h data/bot.db | cut -f1))"
           else
             echo "No saved memory yet: this first run saves existing announcements silently."
