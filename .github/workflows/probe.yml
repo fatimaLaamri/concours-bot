@@ -1,0 +1,24 @@
+# One-off: test candidate URLs from GitHub's network and save the results to branch probe-results.
+name: Probe site URLs
+on:
+  push:
+    branches: [probe]
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+      - run: python tools/probe.py tools/probe_candidates.json probe_results.json
+      - name: Save results
+        env: { TOKEN: "${{ secrets.GITHUB_TOKEN }}" }
+        run: |
+          tmp=$(mktemp -d); cp probe_results.json "$tmp/"; cd "$tmp"
+          git init -q -b probe-results; git add probe_results.json
+          git -c user.name=probe -c user.email=probe@users.noreply.github.com commit -q -m results
+          git push -q -f "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" probe-results
