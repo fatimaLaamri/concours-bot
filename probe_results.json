@@ -1,0 +1,110 @@
+[
+ {
+  "id": "dreamjob",
+  "url": "https://www.dreamjob.ma/feed/",
+  "ok": false,
+  "error": "HTTP 403"
+ },
+ {
+  "id": "dreamjob",
+  "url": "https://www.dreamjob.ma/feed/rss2/",
+  "ok": false,
+  "error": "HTTP 403"
+ },
+ {
+  "id": "dreamjob",
+  "url": "https://dreamjob.ma/feed/",
+  "ok": false,
+  "error": "HTTP 403"
+ },
+ {
+  "id": "dreamjob",
+  "url": "https://www.dreamjob.ma/emploi-public/feed/",
+  "ok": false,
+  "error": "HTTP 403"
+ },
+ {
+  "id": "dreamjob",
+  "url": "https://www.dreamjob.ma/orientation/feed/",
+  "ok": false,
+  "error": "HTTP 403"
+ },
+ {
+  "id": "dreamjob",
+  "url": "https://www.dreamjob.ma/wp-json/wp/v2/posts?per_page=10",
+  "ok": false,
+  "error": "HTTP 403"
+ },
+ {
+  "id": "dreamjob",
+  "url": "https://www.dreamjob.ma/sitemap.xml",
+  "ok": false,
+  "error": "HTTP 403"
+ },
+ {
+  "id": "dreamjob",
+  "url": "https://www.dreamjob.ma/post-sitemap.xml",
+  "ok": false,
+  "error": "HTTP 403"
+ },
+ {
+  "id": "dreamjob",
+  "url": "https://www.dreamjob.ma/robots.txt",
+  "ok": false,
+  "error": "HTTP 403"
+ },
+ {
+  "id": "dreamjob",
+  "url": "https://www.dreamjob.ma/",
+  "ok": false,
+  "error": "HTTP 403"
+ },
+ {
+  "id": "wadifapublic",
+  "url": "https://www.wadifapublic.ma/fr/tous",
+  "ok": false,
+  "error": "HTTP 403"
+ },
+ {
+  "id": "wadifapublic",
+  "url": "https://www.wadifapublic.ma/sitemap.xml",
+  "ok": false,
+  "error": "HTTP 403"
+ },
+ {
+  "id": "wadifapublic",
+  "url": "https://www.wadifapublic.ma/rss",
+  "ok": false,
+  "error": "HTTP 403"
+ },
+ {
+  "id": "wadifapublic",
+  "url": "https://www.wadifapublic.ma/fr/rss",
+  "ok": false,
+  "error": "HTTP 403"
+ },
+ {
+  "id": "wadifapublic",
+  "url": "https://www.wadifapublic.ma/feed",
+  "ok": false,
+  "error": "HTTP 403"
+ },
+ {
+  "id": "wadifapublic",
+  "url": "https://www.wadifapublic.ma/robots.txt",
+  "ok": false,
+  "error": "HTTP 403"
+ },
+ {
+  "id": "wadifapublic",
+  "url": "https://wadifapublic.ma/",
+  "ok": false,
+  "error": "HTTP 403"
+ },
+ {
+  "id": "wadifapublic",
+  "url": "https://www.wadifapublic.ma/",
+  "ok": false,
+  "error": "HTTP 403"
+ }
+]
