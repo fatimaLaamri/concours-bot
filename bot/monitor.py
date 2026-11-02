@@ -34,7 +34,7 @@ CATEGORY_LABEL = {
 MASS_FAILURE_RATIO = 0.7
 # Bump when the filter rules change: the next cycle then saves newly-accepted old links
 # silently instead of sending them as "new".
-FILTER_VERSION = "2"
+FILTER_VERSION = "3"  # 3: site addresses fixed on 2026-11-02
 
 
 @dataclass

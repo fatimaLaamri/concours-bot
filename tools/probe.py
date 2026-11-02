@@ -24,6 +24,8 @@ def probe(job):
         page = fetch(url, 20)
     except FetchError as e:
         return {**out, "ok": False, "error": str(e)}
+    out["content_type"] = page.content_type
+    out["head"] = page.content[:200].decode("utf-8", "replace")
     if looks_like_feed(page.content, page.content_type):
         items, feeds = extract_feed(page.content), []
     else:
