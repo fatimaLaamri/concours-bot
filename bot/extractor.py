@@ -68,6 +68,26 @@ def normalize_text(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip().lower()
 
 
+_MONTHS = ("janvier|fevrier|mars|avril|mai|juin|juillet|aout|septembre|octobre|novembre|decembre|"
+           "jan|fev|feb|mar|avr|apr|jun|jul|aou|aug|sep|sept|oct|nov|dec|"
+           "يناير|فبراير|مارس|ابريل|ماي|يونيو|يوليوز|غشت|شتنبر|اكتوبر|نونبر|دجنبر")
+# Day-month-year dates only (30/10/2026, 30-10-2026, 30 octobre 2026, 21 Oct 26), never a
+# school year like 2026-2027, so next year's announcements stay different.
+_DATE = re.compile(r"(?<!\d)\d{1,2}[./-]\d{1,2}[./-]\d{2,4}(?!\d)|"
+                   r"(?<!\d)\d{1,2}\s+(?:" + _MONTHS + r")\.?\s+\d{2,4}(?!\d)")
+_BADGES = re.compile(r"\b(?:nouveau|nouvelle|new|important|urgent|lire la suite|voir les details)\b|جديد|هام|مهم")
+
+
+def title_core(title: str) -> str:
+    """Title without dates and "Nouveau / Important" badges, to spot the same announcement
+    shown with different decorations."""
+    t = normalize_text(title)
+    t = _DATE.sub(" ", t)
+    t = _BADGES.sub(" ", t)
+    t = re.sub(r"[^\w\s]", " ", t)
+    return re.sub(r"\s+", " ", t).strip()
+
+
 GENERIC_LINK_TEXT = {normalize_text(t) for t in GENERIC_LINK_TEXT}
 SECTION_LINK_TEXT = {normalize_text(t) for t in SECTION_LINK_TEXT}
 

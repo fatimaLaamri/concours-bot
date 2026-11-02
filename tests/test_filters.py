@@ -64,6 +64,18 @@ def main():
     assert not f.accept(Site(id="a", name="a", url="u", category="faculty", filter="strict"),
                         "Fermeture de l'administration le vendredi", "u")
     print(f"✓ {len(KEEP)} real announcements kept, {len(DROP)} noise links dropped")
+
+    from bot.extractor import title_core as core
+    same = [("calendrier de la session d'automne 2026-2027",
+             "30 octobre 2026 calendrier de la session d'automne 2026-2027 Nouveau Important"),
+            ("Test écrit Master en Neurpsychologie Clinique 2026… 21 Oct 26 /",
+             "Test écrit Master en Neurpsychologie Clinique 2026"),
+            ("01 نونبر 2026 لوائح المترشحين", "لوائح المترشحين")]
+    different = [("Concours ENSA 2026-2027", "Concours ENSA 2027-2028"),
+                 ("Résultats concours ENSA liste principale", "Résultats concours ENSA liste d'attente")]
+    assert all(core(a) == core(b) for a, b in same)
+    assert all(core(a) != core(b) for a, b in different)
+    print("✓ same announcement with new dates/badges is a duplicate; next school year is not")
     print("\nALL FILTER TESTS PASSED")
 
 

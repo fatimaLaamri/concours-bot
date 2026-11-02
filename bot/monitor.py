@@ -13,7 +13,7 @@ from zoneinfo import ZoneInfo
 import requests
 
 from .config import Settings, Site, load_sites
-from .extractor import Item, extract_feed, extract_html, looks_like_feed, normalize_text
+from .extractor import Item, extract_feed, extract_html, looks_like_feed, title_core
 from .fetcher import FetchError, fetch
 from .filters import AnnouncementFilter
 from .storage import Storage
@@ -125,10 +125,10 @@ class Monitor:
         known = self.db.known_keys(site.id)
         # Some sites (e.g. Laravel ones) put a code in each link that changes on every page
         # load, so a known title with a new link is not a new announcement.
-        known_titles = {normalize_text(t) for t in self.db.known_titles(site.id)}
+        known_titles = {title_core(t) for t in self.db.known_titles(site.id)}
         new, seen_now = [], set()
         for i in items:
-            t = normalize_text(i.title)
+            t = title_core(i.title)
             if i.key in known or (len(t) >= 12 and (t in known_titles or t in seen_now)):
                 continue
             seen_now.add(t)
