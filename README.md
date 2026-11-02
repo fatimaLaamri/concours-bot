@@ -175,6 +175,7 @@ It writes `data/site_report.csv` (opens in Excel) with each site's status:
   rss: https://site/feed/         # use a feed (most reliable)
   selector: ".actualites a"       # only read links inside this block of the page
   keywords: false                 # send every new link, not only keyword matches
+  filter: strict                  # broad | strict | strict_jobs | all (default: from category)
 ```
 
 **Finding a selector:** open the site in Chrome, right-click the news list → *Inspect*, and
@@ -185,6 +186,25 @@ Entries that pointed to the same URL in the original list (e.g. all CMC → mywa
 merged into one site. The other names are kept under `also:`, so 279 entries became 244 sites.
 
 To regenerate from a new JSON list: `python tools/import_list.py list.txt > sites.yaml`.
+
+### Which links count as announcements
+
+- **Orientation and job sites** (`aggregator`, `jobs`): any announcement-like title.
+- **School, faculty and university sites**: the title must mention admission (concours,
+  candidature, inscription, مباراة, ولوج, ترشيح…) and must not be an event, thesis defence,
+  exam calendar, notice for current students, staff recruitment or doctorate list.
+- **Ministries, portals, military and police** (`portal`, `military_security`): same as schools,
+  but recruitment ("recrutement", "توظيف") is allowed, since that is their concours.
+- Page navigation ("Page 2", "suivant", "M'inscrire") is always ignored.
+
+The rules are in `bot/filters.py` and tested on real titles in `tests/test_filters.py`.
+After changing them, bump `FILTER_VERSION` in `bot/monitor.py` so the next run saves
+newly accepted old links silently.
+
+### A second bot
+
+Add the secrets `BOT_TOKEN_2`, `CHAT_ID_2` (and optionally `ADMIN_ID_2`) on GitHub. Both bots
+then get every alert, and each answers commands from its own admins.
 
 ## 8. Telegram commands (admin only)
 
@@ -217,6 +237,8 @@ To regenerate from a new JSON list: `python tools/import_list.py list.txt > site
 | `MAX_NEW_PER_SITE` | 15 | flood protection threshold |
 | `LINK_PREVIEW` | true | link preview under messages |
 | `EXTRA_KEYWORDS` | | extra words to match, comma separated |
+| `INCLUDE_DOCTORATE` | false | also send doctorate lists from school sites |
+| `BOT_TOKEN_2`, `CHAT_ID_2`, `ADMIN_ID_2` | | optional second bot (e.g. the owner's own bot) that gets the same alerts and answers commands |
 | `HEALTHCHECK_URL` | | healthchecks.io ping URL |
 | `DRY_RUN` | 0 | print instead of sending |
 
