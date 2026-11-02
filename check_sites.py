@@ -14,11 +14,11 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from bot.config import ROOT, load_sites
-from bot.extractor import (KeywordMatcher, extract_feed, extract_html, link_path_text,
-                           looks_like_feed)
+from bot.extractor import extract_feed, extract_html, looks_like_feed
+from bot.filters import AnnouncementFilter
 from bot.fetcher import FetchError, fetch
 
-matcher = KeywordMatcher()
+announcement_filter = AnnouncementFilter()
 
 
 def probe(site):
@@ -38,7 +38,7 @@ def probe(site):
         items, feeds = extract_html(page.content, page.url, site.selector)
     if feeds and not row["rss"]:
         row["rss"] = feeds[0]
-    good = [i for i in items if not site.keywords or matcher.matches(i.title, link_path_text(i.url))]
+    good = [i for i in items if announcement_filter.accept(site, i.title, i.url)]
     row.update(status="OK" if good else "NO_LINKS", links=len(items), announcement_links=len(good),
                sample=" | ".join(i.title[:60] for i in good[:3]))
     return row, good

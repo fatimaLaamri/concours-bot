@@ -1,5 +1,6 @@
 # Runs the concours bot on GitHub every 15 minutes (free in a public repository).
-# Setup: add the secrets BOT_TOKEN, CHAT_ID and ADMIN_ID in
+# Setup: add the secrets BOT_TOKEN, CHAT_ID and ADMIN_ID (optional: BOT_TOKEN_2, CHAT_ID_2,
+# ADMIN_ID_2 for a second bot) in
 #   Settings > Secrets and variables > Actions > New repository secret
 # The bot's memory (bot.db) is kept in a separate branch called "state".
 name: Concours bot
@@ -46,6 +47,9 @@ jobs:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
           ADMIN_ID: ${{ secrets.ADMIN_ID }}
+          BOT_TOKEN_2: ${{ secrets.BOT_TOKEN_2 }}    # optional second bot
+          CHAT_ID_2: ${{ secrets.CHAT_ID_2 }}
+          ADMIN_ID_2: ${{ secrets.ADMIN_ID_2 }}
           HEALTHCHECK_URL: ${{ secrets.HEALTHCHECK_URL }}
           TIMEZONE: Africa/Casablanca
           INTERVAL_MINUTES: "15"

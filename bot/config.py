@@ -36,6 +36,17 @@ def _int(name: str, default: int) -> int:
 
 
 @dataclass
+class BotConfig:
+    token: str
+    chat_ids: list[str]
+    admin_ids: list[str]
+
+
+def _ids(value: str) -> list[str]:
+    return [c.strip() for c in (value or "").split(",") if c.strip()]
+
+
+@dataclass
 class Settings:
     bot_token: str
     chat_id: str            # where announcements go; comma-separated for several chats
@@ -53,6 +64,20 @@ class Settings:
     sites_file: Path
     log_level: str = "INFO"
     extra_keywords: list[str] = field(default_factory=list)
+    include_doctorate: bool = False
+    bot_token_2: str = ""
+    chat_id_2: str = ""
+    admin_id_2: str = ""
+
+    @property
+    def bots(self) -> list[BotConfig]:
+        """Main bot (BOT_TOKEN/CHAT_ID/ADMIN_ID) plus an optional second bot
+        (BOT_TOKEN_2/CHAT_ID_2/ADMIN_ID_2), e.g. the owner's own bot for monitoring."""
+        out = [BotConfig(self.bot_token, self.chat_ids, self.admin_ids)]
+        if self.bot_token_2:
+            out.append(BotConfig(self.bot_token_2, _ids(self.chat_id_2),
+                                 _ids(self.admin_id_2) or _ids(self.chat_id_2)))
+        return out
 
     @property
     def chat_ids(self) -> list[str]:
@@ -90,6 +115,10 @@ def load_settings() -> Settings:
         sites_file=Path(os.environ.get("SITES_FILE", ROOT / "sites.yaml")),
         log_level=os.environ.get("LOG_LEVEL", "INFO").upper(),
         extra_keywords=[k.strip() for k in os.environ.get("EXTRA_KEYWORDS", "").split(",") if k.strip()],
+        include_doctorate=_bool("INCLUDE_DOCTORATE", False),
+        bot_token_2=os.environ.get("BOT_TOKEN_2", "").strip(),
+        chat_id_2=os.environ.get("CHAT_ID_2", "").strip(),
+        admin_id_2=os.environ.get("ADMIN_ID_2", "").strip(),
     )
     if not s.dry_run and not s.bot_token:
         raise SystemExit("BOT_TOKEN must be set (see .env.example), or set DRY_RUN=1")
@@ -108,6 +137,7 @@ class Site:
     rss: str | None = None
     selector: str | None = None
     keywords: bool = True
+    filter: str | None = None   # broad / strict / strict_jobs / all (default: from category)
     also: list[str] = field(default_factory=list)
 
 
@@ -125,6 +155,7 @@ def load_sites(path: Path) -> list[Site]:
             rss=raw.get("rss"),
             selector=raw.get("selector"),
             keywords=bool(raw.get("keywords", True)),
+            filter=raw.get("filter"),
             also=list(raw.get("also", []) or []),
         )
         if site.id in seen:

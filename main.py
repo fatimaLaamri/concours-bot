@@ -72,8 +72,10 @@ def main() -> None:
     signal.signal(signal.SIGTERM, shutdown)
     signal.signal(signal.SIGINT, shutdown)
 
-    commands = CommandHandler(monitor)
-    threading.Thread(target=commands.poll_forever, args=(stop,), daemon=True, name="commands").start()
+    for i, (tg_client, bot) in enumerate(monitor.bots):
+        handler = CommandHandler(monitor, tg_client, bot)
+        threading.Thread(target=handler.poll_forever, args=(stop,), daemon=True,
+                         name=f"commands-{i + 1}").start()
 
     if not settings.chat_id and not settings.dry_run:
         log.warning("SETUP MODE: CHAT_ID is empty. Send /start to your bot in Telegram; it will reply "
@@ -96,8 +98,8 @@ def main() -> None:
 def run_github(settings, storage, monitor, log) -> None:
     """One GitHub Actions run: answer commands, check all sites, answer again, exit."""
     monitor.github_mode = True
-    commands = CommandHandler(monitor)
-    n = commands.poll_once()
+    handlers = [CommandHandler(monitor, tg_client, bot) for tg_client, bot in monitor.bots]
+    n = sum(h.poll_once() for h in handlers)
     log.info("Answered %d commands", n)
     if not settings.chat_id:
         storage.close()
@@ -113,7 +115,8 @@ def run_github(settings, storage, monitor, log) -> None:
         if not monitor.paused:
             monitor.run_cycle()
             monitor.maybe_daily_report()
-        commands.poll_once()  # answer anything that arrived during the check
+        for h in handlers:
+            h.poll_once()  # answer anything that arrived during the check
     finally:
         storage.close()
 

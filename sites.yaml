@@ -37,11 +37,11 @@ sites:
 - id: alwadifa_maroc
   name: موقع الوظيفة مروك (Alwadifa-Maroc)
   url: https://www.alwadifa-maroc.com/
-  category: aggregator
+  category: jobs
 - id: emploi_public
   name: بوابة الوظيفة العمومية والمباريات (Emploi Public)
   url: https://www.emploi-public.ma/
-  category: aggregator
+  category: jobs
 - id: ministry_men
   name: وزارة التربية الوطنية والرياضة
   url: https://www.men.gov.ma/Ar/Pages/Accueil.aspx

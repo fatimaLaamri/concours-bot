@@ -44,9 +44,10 @@ def _ago(ts: float | None, tz) -> str:
 
 
 class CommandHandler:
-    def __init__(self, monitor: Monitor):
+    def __init__(self, monitor: Monitor, tg=None, bot=None):
         self.m = monitor
-        self.tg = monitor.tg
+        self.tg = tg or monitor.tg
+        self.bot = bot or monitor.s.bots[0]
         self.db = monitor.db
 
     @property
@@ -60,7 +61,7 @@ class CommandHandler:
 
     def authorized(self, msg: dict) -> bool:
         ids = {str(msg.get("chat", {}).get("id")), str((msg.get("from") or {}).get("id"))}
-        return any(a in ids for a in self.m.s.admin_ids)
+        return any(a in ids for a in self.bot.admin_ids)
 
     def handle(self, msg: dict) -> None:
         text = (msg.get("text") or "").strip()
@@ -278,7 +279,7 @@ class CommandHandler:
 
     def cmd_test(self, chat_id, _):
         lines = []
-        for target in self.m.s.chat_ids:
+        for target in self.bot.chat_ids:
             ok = self.tg.send(target, "✅ Test message from the concours bot.", preview=False)
             lines.append(f"{'✅' if ok else '❌'} {esc(target)}")
         if not all(l.startswith("✅") for l in lines):

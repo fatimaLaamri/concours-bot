@@ -13,16 +13,16 @@ from zoneinfo import ZoneInfo
 import requests
 
 from .config import Settings, Site, load_sites
-from .extractor import (Item, KeywordMatcher, extract_feed, extract_html, link_path_text,
-                        looks_like_feed, normalize_text)
+from .extractor import Item, extract_feed, extract_html, looks_like_feed, normalize_text
 from .fetcher import FetchError, fetch
+from .filters import AnnouncementFilter
 from .storage import Storage
 from .telegram import Telegram, esc
 
 log = logging.getLogger(__name__)
 
 CATEGORY_LABEL = {
-    "aggregator": ("📰", "Actualité"), "portal": ("🏛", "Portail"), "ensa": ("🛠", "ENSA"),
+    "aggregator": ("📰", "Actualité"), "jobs": ("💼", "Emploi"), "portal": ("🏛", "Portail"), "ensa": ("🛠", "ENSA"),
     "encg": ("💼", "ENCG"), "fst": ("🔬", "FST"), "est": ("🎓", "EST"), "ensam": ("⚙️", "ENSAM"),
     "ens": ("📚", "ENS"), "medicine": ("🩺", "Médecine"), "health": ("🏥", "Santé"),
     "architecture": ("📐", "Architecture"), "military_security": ("🎖", "Militaire_Sécurité"),
@@ -32,6 +32,9 @@ CATEGORY_LABEL = {
     "grande_ecole": ("🎯", "Grande_École"),
 }
 MASS_FAILURE_RATIO = 0.7
+# Bump when the filter rules change: the next cycle then saves newly-accepted old links
+# silently instead of sending them as "new".
+FILTER_VERSION = "2"
 
 
 @dataclass
@@ -54,13 +57,17 @@ class Monitor:
         self.s = settings
         self.db = storage
         self.tg = telegram
-        self.matcher = KeywordMatcher(settings.extra_keywords)
+        # (Telegram client, its recipients/admins) for the main bot and the optional second bot
+        self.bots = [(telegram, settings.bots[0])] + [
+            (Telegram(b.token, dry_run=settings.dry_run), b) for b in settings.bots[1:]]
+        self.filter = AnnouncementFilter(settings.extra_keywords, settings.include_doctorate)
         self.tz = ZoneInfo(settings.timezone)
         self.wake = threading.Event()
         self.last: CycleResult | None = None
         self.next_run: float = 0.0
         self._cycle_lock = threading.Lock()
         self.sites: dict[str, Site] = {}
+        self._silent_cycle = False
 
     # ------------------------------------------------------------------ helpers
     @property
@@ -71,8 +78,9 @@ class Monitor:
         return datetime.now(self.tz)
 
     def notify_admin(self, text: str) -> None:
-        for admin in self.s.admin_ids:
-            self.tg.send(admin, text, preview=False)
+        for tg, bot in self.bots:
+            for admin in bot.admin_ids:
+                tg.send(admin, text, preview=False)
 
     # ------------------------------------------------------------------ one site
     def collect(self, site: Site) -> tuple[list[Item], bool, str | None]:
@@ -112,8 +120,7 @@ class Monitor:
             log.exception("Unexpected error on %s", site.id)
             return "fail", 0
 
-        if site.keywords:
-            items = [i for i in items if self.matcher.matches(i.title, link_path_text(i.url))]
+        items = [i for i in items if self.filter.accept(site, i.title, i.url)]
 
         known = self.db.known_keys(site.id)
         # Some sites (e.g. Laravel ones) put a code in each link that changes on every page
@@ -129,7 +136,7 @@ class Monitor:
         rows = [(i.key, i.url, i.title) for i in new]
         self.db.mark_ok(site.id, len(items), feed, insecure)
 
-        if not state["baselined"]:
+        if not state["baselined"] or self._silent_cycle:
             # First successful visit: remember everything silently, so we don't spam old news.
             self.db.add_items(site.id, rows, notified=2)
             self.db.set_baselined(site.id)
@@ -173,7 +180,8 @@ class Monitor:
                 continue
             site = self.sites.get(row["site_id"])
             text = self.format_item(site, row)
-            results = [self.tg.send(chat, text, preview=self.s.link_preview) for chat in self.s.chat_ids]
+            results = [tg.send(chat, text, preview=self.s.link_preview)
+                       for tg, bot in self.bots for chat in bot.chat_ids]
             if any(results):
                 self.db.mark_sent(row["site_id"], row["url_key"])
                 sent += 1
@@ -193,6 +201,11 @@ class Monitor:
                 sites = list(self.sites.values())
             self.sites = {s.id: s for s in sites}
             enabled = [s for s in sites if s.enabled]
+            self._silent_cycle = self.db.get("filter_version") not in (None, FILTER_VERSION)
+            if self.db.get("filter_version") is None and self.db.get("last_cycle"):
+                self._silent_cycle = True  # bot ran before filter versions existed
+            if self._silent_cycle:
+                log.info("Filter rules changed: this cycle saves links silently")
 
             with ThreadPoolExecutor(max_workers=self.s.max_workers) as pool:
                 futures = {pool.submit(self.check_site, s): s for s in enabled}
@@ -210,6 +223,11 @@ class Monitor:
                     else:
                         res.new_items += n
 
+            if self._silent_cycle:
+                self.db.set("filter_version", FILTER_VERSION)
+                self._silent_cycle = False
+            elif self.db.get("filter_version") is None:
+                self.db.set("filter_version", FILTER_VERSION)
             res.sent = self.send_pending()
             res.duration = time.time() - res.started
             self.last = res
